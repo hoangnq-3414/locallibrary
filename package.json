@@ -1,0 +1,36 @@
+{
+  "name": "locallibrary",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "tsc && node dist/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hoangnq-3414/locallibrary.git"
+  },
+  "keywords": [],
+  "author": "hoangnq",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hoangnq-3414/locallibrary/issues"
+  },
+  "homepage": "https://github.com/hoangnq-3414/locallibrary#readme",
+  "devDependencies": {
+    "@types/node": "^20.11.19",
+    "eslint": "^8.56.0",
+    "nodemon": "^3.0.3",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "cookie-parser": "^1.4.6",
+    "debug": "^4.3.4",
+    "dotenv": "^16.4.4",
+    "express": "^4.18.2",
+    "http-errors": "^2.0.0",
+    "morgan": "^1.10.0",
+    "pug": "^3.0.2"
+  }
+}
