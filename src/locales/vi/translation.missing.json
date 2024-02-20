@@ -10,6 +10,11 @@
     "create_book": "home.create_book",
     "create_book_instance": "home.create_book_instance",
     "english": "home.english",
-    "vietnamese": "home.vietnamese"
+    "vietnamese": "home.vietnamese",
+    "welcome": "home.welcome",
+    "content": "home.content",
+    "record_infor": "home.record_infor",
+    "bookinstance": "home.bookinstance",
+    "available_bookinstance": "home.available_bookinstance"
   }
 }
