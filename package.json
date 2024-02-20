@@ -4,8 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "tsc && nodemon dist/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "rimraf ./dist && tsc && tsc-alias",
+    "start": "nodemon dist/index.js",
+    "server:start": "DEBUG=express-locallibrary:* npm run build && npm run start",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "migration:generate": "npx typeorm-ts-node-esm migration:generate -d ./src/config/database.ts",
+    "migration:run": "npx typeorm-ts-node-esm  migration:run -d ./src/config/database.ts",
+    "migration:revert": "npx typeorm-ts-node-esm  migration:revert -d ./src/config/database.ts"
   },
   "repository": {
     "type": "git",
@@ -20,9 +25,12 @@
   "homepage": "https://github.com/hoangnq-3414/locallibrary#readme",
   "devDependencies": {
     "@types/node": "^20.11.19",
+    "cross-env": "^7.0.3",
     "eslint": "^8.56.0",
     "nodemon": "^3.0.3",
     "prettier": "^3.2.5",
+    "rimraf": "^5.0.5",
+    "ts-node": "^10.9.2",
     "typescript": "^5.3.3"
   },
   "dependencies": {
@@ -30,8 +38,11 @@
     "debug": "^4.3.4",
     "dotenv": "^16.4.4",
     "express": "^4.18.2",
+    "helmet": "^7.1.0",
     "http-errors": "^2.0.0",
     "morgan": "^1.10.0",
-    "pug": "^3.0.2"
+    "mysql2": "^3.9.1",
+    "pug": "^3.0.2",
+    "typeorm": "^0.3.20"
   }
 }
