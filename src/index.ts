@@ -7,14 +7,9 @@ import * as dotenv from 'dotenv';
 import logger from 'morgan';
 
 dotenv.config();
-
-import { AppDataSource } from './config/database';
-
 const app = express();
 const port = 3000;
-
-console.log(process.env);
-
+import { AppDataSource } from './config/database';
 AppDataSource.initialize()
   .then(() => {
     console.log('Data Source has been initialized!');
