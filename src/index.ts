@@ -4,6 +4,7 @@ import createError from 'http-errors';
 import cookieParser from 'cookie-parser';
 import router from './routes';
 import logger from 'morgan';
+import connnection from './connect';
 
 const app = express();
 const port = 3000;
@@ -31,3 +32,5 @@ app.use(router);
 app.listen(port, () => {
   console.log(`App listening on port ${port}`);
 });
+
+connnection;
