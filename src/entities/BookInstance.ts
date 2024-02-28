@@ -1,6 +1,7 @@
 // src/entities/BookInstance.ts
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
 import { Book } from './Book';
+import { BookInstanceStatus } from '../untils/constants';
 
 @Entity()
 export class BookInstance {
@@ -15,7 +16,7 @@ export class BookInstance {
 
   @Column({
     type: 'enum',
-    enum: ['Available', 'Maintenance', 'On Loan', 'Reserved'],
+    enum: Object.values(BookInstanceStatus),
   })
   status: string;
 

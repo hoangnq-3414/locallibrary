@@ -1,0 +1,16 @@
+{
+  "home": {
+      "title": "Home",
+      "book": "All Books",
+      "author": "All Authors",
+      "genre": "All Genres",
+      "book_instance": "All Book Instances",
+      "create_author": "Create New Author",
+      "create_genre": "Create New Genre",
+      "create_book": "Create New Book",
+      "create_book_instance": "Create New Book Instance",
+      "english": "english",
+      "vietnamese": "vietnamese"
+  }
+}
+  
