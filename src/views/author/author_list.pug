@@ -7,7 +7,7 @@ block content
     ul
       each author in author_list
         li
-          a(href=author.url) #{author.name}
+          a(href=`/authors/${author.authorId}`) #{author.name}
           |  (#{author.dateOfBirth} - #{author.dateOfDeath})
   else
     p #{t('home.no_author')}

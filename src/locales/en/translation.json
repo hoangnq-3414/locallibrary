@@ -22,7 +22,12 @@
       "no_bookinstance":"There are no book copies in this library.",
       "no_genre":"There are no genres.",
       "english": "english",
-      "vietnamese": "vietnamese"
+      "vietnamese": "vietnamese",
+      "status": "status",
+      "imprint": "imprint",
+      "titleBook": "Title",
+      "dueBack": "Date due back",
+      "isbn": "ISBN",
+      "summary": "Summary"
   }
 }
-  

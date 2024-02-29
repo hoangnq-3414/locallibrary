@@ -3,8 +3,10 @@ import asyncHandler from 'express-async-handler';
 import { Author } from '../entities/Author';
 import { AppDataSource } from '../config/database';
 import { DateTime } from 'luxon';
+import { Book } from '../entities/Book';
 
 const authorRepository = AppDataSource.getRepository(Author);
+const bookRepository = AppDataSource.getRepository(Book);
 
 // Display list of all Authors.
 export const author_list = asyncHandler(
@@ -34,51 +36,24 @@ export const author_list = asyncHandler(
   },
 );
 
-// Display detail page for a specific Author.
-export const author_detail = asyncHandler(
-  async (req: Request, res: Response, next: NextFunction) => {
-    res.send(`NOT IMPLEMENTED: Author detail: ${req.params.id}`);
-  },
-);
+// Detail author
+export const author_detail = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const author = await authorRepository.findOne({
+      where: { authorId: req.params.id },
+      relations: ['books']
+    });
+    console.log(author);
 
-// Display Author create form on GET.
-export const author_create_get = asyncHandler(
-  async (req: Request, res: Response, next: NextFunction) => {
-    res.send('NOT IMPLEMENTED: Author create GET');
-  },
-);
+    if (!author) {
+      req.flash('error', 'Author not found');
+      res.redirect('/authors');
+    }
 
-// Handle Author create on POST.
-export const author_create_post = asyncHandler(
-  async (req: Request, res: Response, next: NextFunction) => {
-    res.send('NOT IMPLEMENTED: Author create POST');
-  },
-);
-
-// Display Author delete form on GET.
-export const author_delete_get = asyncHandler(
-  async (req: Request, res: Response, next: NextFunction) => {
-    res.send('NOT IMPLEMENTED: Author delete GET');
-  },
-);
-
-// Handle Author delete on POST.
-export const author_delete_post = asyncHandler(
-  async (req: Request, res: Response, next: NextFunction) => {
-    res.send('NOT IMPLEMENTED: Author delete POST');
-  },
-);
-
-// Display Author update form on GET.
-export const author_update_get = asyncHandler(
-  async (req: Request, res: Response, next: NextFunction) => {
-    res.send('NOT IMPLEMENTED: Author update GET');
-  },
-);
-
-// Handle Author update on POST.
-export const author_update_post = asyncHandler(
-  async (req: Request, res: Response, next: NextFunction) => {
-    res.send('NOT IMPLEMENTED: Author update POST');
-  },
-);
+    res.render("author/author_detail", {
+      author: author
+    });
+  } catch (err) {
+    next(err);
+  }
+};

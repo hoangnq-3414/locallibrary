@@ -1,0 +1,34 @@
+extends ../layout
+
+block content
+  each book in newbook
+    h1 #{t('home.titleBook')}: #{book.title}
+    p #[strong #{t('home.author')}: ]
+      a(href=`/authors/${book.authorId}`) #{book.name}
+    p #[strong #{t('home.summary')}:] #{book.summary}
+    p #[strong #{t('home.isbn')}:] #{book.isbn}
+    p #[strong #{t('home.genre')}: ]
+      each val in genre
+        a(href=`/genres/${val.genreId}`) #{val.name}
+        if index < genre.length - 1
+          |,&nbsp;
+
+  div(style='margin-left:20px;margin-top:20px')
+    h4 #{t('home.book_instance')}:
+
+    each val in book_instances
+      hr
+      if val.status=='Available'
+        p.text-success #{val.status}
+      else if val.status=='Maintenance'
+        p.text-danger #{val.status}
+      else
+        p.text-warning #{val.status}
+      p #[strong #{t('home.imprint')}:] #{val.imprint}
+      if val.status!='Available'
+        p #[strong #{t('home.dueBack')}:] #{val.dueBack}
+      p #[strong Id: ]
+        a(href=`/bookinstances/${val.instanceId}`) #{val.instanceId}
+
+    else
+      p #{t('home.no_book')}:
