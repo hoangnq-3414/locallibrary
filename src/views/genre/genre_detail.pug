@@ -1,0 +1,17 @@
+extends ../layout
+
+block content
+
+  h1 #{t('home.genre')}: #{genre[0].genre.name} 
+
+  div(style='margin-left:20px;margin-top:20px')
+
+    h4 #{t('home.book')}:
+    if genre.length
+      dl
+        each book in genre
+          dt
+            a(href=`/books/${book.book.bookId}`) #{book.book.title}
+          dd #{book.book.summary}
+    else
+      p #{t('home.no_book')}:

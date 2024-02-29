@@ -1,14 +1,14 @@
 import express from 'express';
 import path from 'path';
-import createError from 'http-errors';
 import cookieParser from 'cookie-parser';
+import session from 'express-session';
 import router from './routes';
 import * as dotenv from 'dotenv';
 import logger from 'morgan';
 import i18next from 'i18next';
 import i18nextMiddleware from 'i18next-http-middleware';
-import i18nextBackend from "i18next-fs-backend"
-
+import i18nextBackend from "i18next-fs-backend";
+import flash from 'connect-flash';
 
 dotenv.config();
 const app = express();
@@ -48,6 +48,11 @@ i18next
   });
 
 app.use(i18nextMiddleware.handle(i18next));
+
+// Use cookie-parser middleware
+app.use(cookieParser('keyboard cat'));
+app.use(session({ cookie: { maxAge: 60000 } }));
+app.use(flash());
 
 // Set view engine
 app.set("views", path.join(__dirname, "views"));

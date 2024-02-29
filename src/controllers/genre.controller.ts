@@ -2,8 +2,10 @@ import { Request, Response, NextFunction } from 'express';
 import asyncHandler from 'express-async-handler';
 import { Genre } from '../entities/Genre';
 import { AppDataSource } from '../config/database';
+import { BookGenre } from '../entities/BookGenre';
 
 const genreRepository = AppDataSource.getRepository(Genre);
+const bookGenreRepository = AppDataSource.getRepository(BookGenre);
 
 // Display list of all Genre.
 export const genre_list = asyncHandler(
@@ -20,51 +22,32 @@ export const genre_list = asyncHandler(
   },
 );
 
-// Display detail page for a specific Genre.
-exports.genre_detail = asyncHandler(
-  async (req: Request, res: Response, next: NextFunction) => {
-    res.send(`NOT IMPLEMENTED: Genre detail: ${req.params.id}`);
-  },
-);
+// Detail genre
+export const genre_detail = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const bookGenres = await bookGenreRepository.find({
+      where: {
+        genre: {
+          genreId: req.params.id,
+        },
+      },
+      relations: ['genre', 'book'],
+    });
 
-// Display Genre create form on GET.
-exports.genre_create_get = asyncHandler(
-  async (req: Request, res: Response, next: NextFunction) => {
-    res.send('NOT IMPLEMENTED: Genre create GET');
-  },
-);
+    if (!bookGenres) {
+      req.flash('error', req.t('home.no_genre'));
+      return res.redirect('/genres');
+    }
 
-// Handle Genre create on POST.
-exports.genre_create_post = asyncHandler(
-  async (req: Request, res: Response, next: NextFunction) => {
-    res.send('NOT IMPLEMENTED: Genre create POST');
-  },
-);
-
-// Display Genre delete form on GET.
-exports.genre_delete_get = asyncHandler(
-  async (req: Request, res: Response, next: NextFunction) => {
-    res.send('NOT IMPLEMENTED: Genre delete GET');
-  },
-);
-
-// Handle Genre delete on POST.
-exports.genre_delete_post = asyncHandler(
-  async (req: Request, res: Response, next: NextFunction) => {
-    res.send('NOT IMPLEMENTED: Genre delete POST');
-  },
-);
-
-// Display Genre update form on GET.
-exports.genre_update_get = asyncHandler(
-  async (req: Request, res: Response, next: NextFunction) => {
-    res.send('NOT IMPLEMENTED: Genre update GET');
-  },
-);
-
-// Handle Genre update on POST.
-exports.genre_update_post = asyncHandler(
-  async (req: Request, res: Response, next: NextFunction) => {
-    res.send('NOT IMPLEMENTED: Genre update POST');
-  },
-);
+    res.render('genre/genre_detail', {
+      title: 'Genre Detail',
+      genre: bookGenres,
+    });
+  } catch (error) {
+    next(error);
+  }
+};

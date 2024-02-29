@@ -15,6 +15,7 @@
     "content": "home.content",
     "record_infor": "home.record_infor",
     "bookinstance": "home.bookinstance",
-    "available_bookinstance": "home.available_bookinstance"
+    "available_bookinstance": "home.available_bookinstance",
+    "status": "home.status"
   }
 }
