@@ -6,12 +6,13 @@ import { Author } from '../entities/Author';
 import { Genre } from '../entities/Genre';
 import { BookInstance } from '../entities/BookInstance';
 import { BookInstanceStatus } from '../untils/constants';
-import i18next from 'i18next';
+import { BookGenre } from '../entities/BookGenre';
 
 const bookRepository = AppDataSource.getRepository(Book);
 const authorRepository = AppDataSource.getRepository(Author);
 const genreRepository = AppDataSource.getRepository(Genre);
 const bookInstanceRepository = AppDataSource.getRepository(BookInstance);
+const bookGenreRepository = AppDataSource.getRepository(BookGenre);
 
 export const index = async (
   req: Request,
@@ -54,7 +55,7 @@ export const book_list = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const allBooks = await bookRepository.find({
-        select: ['title', 'author'],
+        select: ['bookId', 'title', 'author'],
         relations: ['author'],
         order: { title: 'ASC' },
       });
@@ -66,51 +67,35 @@ export const book_list = asyncHandler(
   },
 );
 
-// Display detail page for a specific book.
-exports.book_detail = asyncHandler(
-  async (req: Request, res: Response, next: NextFunction) => {
-    res.send(`NOT IMPLEMENTED: Book detail: ${req.params.id}`);
-  },
-);
+// detail book
+export const book_detail = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const book = await bookRepository.findOne({
+      where: { bookId: req.params.id },
+      relations: ['author', 'bookInstances'],
+    });
 
-// Display book create form on GET.
-exports.book_create_get = asyncHandler(
-  async (req: Request, res: Response, next: NextFunction) => {
-    res.send('NOT IMPLEMENTED: Book create GET');
-  },
-);
+    if (!book) {
+      req.flash('error', req.t('home.no_book'));
+      res.redirect('/books');
+    }
 
-// Handle book create on POST.
-exports.book_create_post = asyncHandler(
-  async (req: Request, res: Response, next: NextFunction) => {
-    res.send('NOT IMPLEMENTED: Book create POST');
-  },
-);
+    const bookInstance = book.bookInstances;
+    const genre = await bookGenreRepository.find({
+      where: { book: book },
+      relations: ['genre'],
+    });
 
-// Display book delete form on GET.
-exports.book_delete_get = asyncHandler(
-  async (req: Request, res: Response, next: NextFunction) => {
-    res.send('NOT IMPLEMENTED: Book delete GET');
-  },
-);
-
-// Handle book delete on POST.
-exports.book_delete_post = asyncHandler(
-  async (req: Request, res: Response, next: NextFunction) => {
-    res.send('NOT IMPLEMENTED: Book delete POST');
-  },
-);
-
-// Display book update form on GET.
-exports.book_update_get = asyncHandler(
-  async (req: Request, res: Response, next: NextFunction) => {
-    res.send('NOT IMPLEMENTED: Book update GET');
-  },
-);
-
-// Handle book update on POST.
-exports.book_update_post = asyncHandler(
-  async (req: Request, res: Response, next: NextFunction) => {
-    res.send('NOT IMPLEMENTED: Book update POST');
-  },
-);
+    res.render('book/book_detail', {
+      book: book,
+      book_instances: bookInstance,
+      genre: genre,
+    });
+  } catch (err) {
+    next(err);
+  }
+};

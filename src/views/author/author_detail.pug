@@ -1,0 +1,18 @@
+extends ../layout
+
+block content
+
+  h1 #{t('home.author')}:  #{author.name}
+  p #{author.dateOfBirth} - #{author.dateOfDeath}
+
+  div(style='margin-left:20px;margin-top:20px')
+
+    h4 #{t('home.book')}: 
+    if author.books.length
+      dl
+        each book in author.books
+          dt
+            a(href=`/books/${book.bookId}`) #{book.title}
+          dd #{book.summary}
+    else
+      p #{t('home.no_book')}

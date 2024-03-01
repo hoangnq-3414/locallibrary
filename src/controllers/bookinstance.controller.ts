@@ -29,51 +29,27 @@ export const bookinstance_list = asyncHandler(
   },
 );
 
-// Display detail page for a specific BookInstance.
-exports.bookinstance_detail = asyncHandler(
+// detail bookinstance
+export const bookinstance_detail = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
-    res.send(`NOT IMPLEMENTED: BookInstance detail: ${req.params.id}`);
-  },
-);
+    try {
+      const bookInstance = await bookInstanceRepository.findOne({
+        where: { instanceId: req.params.id },
+        relations: ['book'],
+      });
 
-// Display BookInstance create form on GET.
-exports.bookinstance_create_get = asyncHandler(
-  async (req: Request, res: Response, next: NextFunction) => {
-    res.send('NOT IMPLEMENTED: BookInstance create GET');
-  },
-);
+      if (!bookInstance) {
+        req.flash('error', req.t('home.no_bookinstance'));
+        res.redirect('/bookinstances');
+      }
 
-// Handle BookInstance create on POST.
-exports.bookinstance_create_post = asyncHandler(
-  async (req: Request, res: Response, next: NextFunction) => {
-    res.send('NOT IMPLEMENTED: BookInstance create POST');
-  },
-);
+      console.log(bookInstance);
 
-// Display BookInstance delete form on GET.
-exports.bookinstance_delete_get = asyncHandler(
-  async (req: Request, res: Response, next: NextFunction) => {
-    res.send('NOT IMPLEMENTED: BookInstance delete GET');
-  },
-);
-
-// Handle BookInstance delete on POST.
-exports.bookinstance_delete_post = asyncHandler(
-  async (req: Request, res: Response, next: NextFunction) => {
-    res.send('NOT IMPLEMENTED: BookInstance delete POST');
-  },
-);
-
-// Display BookInstance update form on GET.
-exports.bookinstance_update_get = asyncHandler(
-  async (req: Request, res: Response, next: NextFunction) => {
-    res.send('NOT IMPLEMENTED: BookInstance update GET');
-  },
-);
-
-// Handle bookinstance update on POST.
-exports.bookinstance_update_post = asyncHandler(
-  async (req: Request, res: Response, next: NextFunction) => {
-    res.send('NOT IMPLEMENTED: BookInstance update POST');
+      res.render('bookinstance/bookinstance_detail', {
+        bookinstance: bookInstance,
+      });
+    } catch (err) {
+      next(err);
+    }
   },
 );

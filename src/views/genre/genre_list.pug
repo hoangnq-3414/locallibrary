@@ -7,6 +7,6 @@ block content
     ul
       each genre in genre_list
         li
-          a(href=genre.url) #{genre.name}
+          a(href=`/genres/${genre.genreId}`) #{genre.name}
   else
     p #{t('home.no_genre')}

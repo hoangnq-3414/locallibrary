@@ -22,7 +22,12 @@
       "no_bookinstance":"Chưa có bản sao của cuốn sách nào",
       "no_genre":"Chưa có thể loại sách nào",
       "english": "english",
-      "vietnamese": "vietnamese"
+      "vietnamese": "vietnamese",
+      "status" : "Tình trạng",
+      "imprint": "Ấn bản",
+      "titleBook": "Tên sách",
+      "dueBack": "Ngày trả sách",
+      "isbn": "Số hiệu tiêu chuẩn sách",
+      "summary": "Tóm tắt"
   }
 }
-  

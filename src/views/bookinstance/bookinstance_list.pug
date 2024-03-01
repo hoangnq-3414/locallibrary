@@ -7,7 +7,7 @@ block content
     ul
       each val in bookinstance_list
         li
-          a(href=val.url) #{val.book.title} : #{val.imprint} -&nbsp;
+          a(href=`/bookinstances/${val.instanceId}`) #{val.book.title} : #{val.imprint} -&nbsp;
           if val.status=='Available'
             span.text-success #{val.status}
           else if val.status=='Maintenance'
