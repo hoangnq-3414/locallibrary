@@ -16,6 +16,13 @@
     "record_infor": "home.record_infor",
     "bookinstance": "home.bookinstance",
     "available_bookinstance": "home.available_bookinstance",
-    "status": "home.status"
+    "status": "home.status",
+    "submit": "home.submit"
+  },
+  "delete": {
+    "author_title": "delete.author_title",
+    "genre_confirm": "delete.genre_confirm",
+    "bookinstance_confirm": "delete.bookinstance_confirm",
+    "bookinstance_delete": "delete.bookinstance_delete"
   }
 }
