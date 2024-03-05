@@ -1,6 +1,5 @@
 import express from 'express';
 import authorRoute from './author.route';
-import booGenreRoute from './bookGenre.route';
 import bookInstanceRoute from './bookInstance.route';
 import bookRoute from './book.route';
 import genreRoute from './genre.route';
@@ -15,7 +14,6 @@ router.get('/', (req: Request, res: Response, next: NextFunction) => {
 
 router.use('/authors', authorRoute);
 router.use('/books', bookRoute);
-router.use('/bookGenre', booGenreRoute);
 router.use('/bookinstances', bookInstanceRoute);
 router.use('/genres', genreRoute);
 

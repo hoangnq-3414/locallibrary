@@ -16,3 +16,9 @@ block content
           dd #{book.summary}
     else
       p #{t('home.no_book')}
+
+  hr
+  p
+    a(href=`/authors/delete/${author.authorId}`) #{t('delete.author_delete')}
+  p
+    a(href=`/authors/update/${author.authorId}`) #{t('delete.author_update')}
